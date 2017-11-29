@@ -1,4 +1,5 @@
 import { app, BrowserWindow, screen, Menu } from 'electron';
+import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
 import * as path from 'path';
 
 let win, serve;
@@ -8,6 +9,10 @@ serve = args.some(val => val === '--serve');
 if (serve) {
   require('electron-reload')(__dirname, {
   });
+
+  installExtension(REDUX_DEVTOOLS)
+    .then((name) => console.log(`Added Extension:  ${name}`))
+    .catch((err) => console.log('An error occurred: ', err));
 }
 
 function createWindow() {

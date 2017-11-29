@@ -1,0 +1,33 @@
+:host {
+  display: grid;
+  grid-template-areas:
+    "buttons  buttons"
+    "addons   addons";
+  grid-row-gap: 1em;
+
+  #top-buttons {
+    grid-area: buttons;
+    display: flex;
+    justify-content: space-around;
+
+    button {
+
+    }
+  }
+
+  #addon-list {
+    grid-area: addons;
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+
+    .mat-table {
+      overflow: auto;
+      max-height: 500px;
+    }
+
+    .mat-header-cell.mat-sort-header-sorted {
+      color: black;
+    }
+  }
+}

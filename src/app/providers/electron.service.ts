@@ -45,4 +45,16 @@ export class ElectronService {
   setSetting(key: string, value: any): void {
     this.settings.set(key, value);
   }
+
+  clearSettings(): void {
+    this.settings.deleteAll();
+  }
+
+  get currentWindow() {
+    return window.require('electron').remote.getCurrentWindow();
+  }
+
+  get remote() {
+    return window.require('electron').remote;
+  }
 }

@@ -22,9 +22,13 @@ export class AppComponent {
     }
 
     if (!electronService.hasSetting(SettingsKeys.InstallationPath)) {
-      router.navigate(['/installation-path', { fresh: true }]);
+      router.navigate(['/first-run']);
     } else {
       router.navigate(['/home']);
     }
+  }
+
+  clearSettings(): void {
+    this.electronService.clearSettings();
   }
 }

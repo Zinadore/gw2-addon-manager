@@ -1,0 +1,36 @@
+<div id="top-buttons">
+  <button>Settings</button>
+  <button>Play</button>
+</div>
+
+<div id="addon-list">
+  <mat-table #table [dataSource]="dataSource" matSort>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="name">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Addon Name </mat-header-cell>
+      <mat-cell *matCellDef="let addon"> {{addon.name}} </mat-cell>
+    </ng-container>
+
+    <!-- Name Column -->
+    <ng-container matColumnDef="version">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Version </mat-header-cell>
+      <mat-cell *matCellDef="let addon"> {{addon.installed_version}} </mat-cell>
+    </ng-container>
+
+    <!-- Weight Column -->
+    <ng-container matColumnDef="weight">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Latest Version </mat-header-cell>
+      <mat-cell  *matCellDef="let addon"> {{addon.latest_version}} </mat-cell>
+    </ng-container>
+
+    <!-- Color Column -->
+    <ng-container matColumnDef="symbol">
+      <mat-header-cell *matHeaderCellDef mat-sort-header> Installed </mat-header-cell>
+      <mat-cell *matCellDef="let addon"> {{addon.installed}} </mat-cell>
+    </ng-container>
+
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>
+  </mat-table>
+</div>

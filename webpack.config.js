@@ -261,6 +261,8 @@ module.exports = {
     "url": "require('url')",
     // "util": "require('util')",
     // "zlib": "require('zlib')"
+    "electron-settings": "require('electron-settings')",
+    "electron-titlebar": "require('electron-titlebar')"
   },
   "resolve": {
     "extensions": [

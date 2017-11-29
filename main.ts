@@ -1,4 +1,4 @@
-import { app, BrowserWindow, screen } from 'electron';
+import { app, BrowserWindow, screen, Menu } from 'electron';
 import * as path from 'path';
 
 let win, serve;
@@ -17,18 +17,19 @@ function createWindow() {
 
   // Create the browser window.
   win = new BrowserWindow({
-    x: 0,
-    y: 0,
-    width: size.width,
-    height: size.height
+    width: size.width / 2,
+    height: size.height / 2,
+    center: true,
+    frame: false,
+    show: false
   });
 
   // and load the index.html of the app.
   win.loadURL('file://' + __dirname + '/index.html');
 
-  // Open the DevTools.
-  if (serve) {
-    win.webContents.openDevTools();
+  // Remove the menu bar in production builds
+  if (!serve) {
+    Menu.setApplicationMenu(null);
   }
 
   // Emitted when the window is closed.
@@ -38,6 +39,10 @@ function createWindow() {
     // when you should delete the corresponding element.
     win = null;
   });
+
+  win.once('ready-to-show', () => {
+    win.show();
+  })
 }
 
 try {

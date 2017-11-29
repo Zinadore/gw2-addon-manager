@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { ElectronService } from './providers/electron.service';
+import { Router } from '@angular/router';
+import { SettingsKeys } from './config/app.settings';
 
 @Component({
   selector: 'app-root',
@@ -7,7 +9,7 @@ import { ElectronService } from './providers/electron.service';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
-  constructor(public electronService: ElectronService) {
+  constructor(private electronService: ElectronService, private router: Router) {
 
     if (electronService.isElectron()) {
       console.log('Mode electron');
@@ -17,6 +19,12 @@ export class AppComponent {
       console.log('c', electronService.childProcess);
     } else {
       console.log('Mode web');
+    }
+
+    if (!electronService.hasSetting(SettingsKeys.InstallationPath)) {
+      router.navigate(['/installation-path', { fresh: true }]);
+    } else {
+      router.navigate(['/home']);
     }
   }
 }

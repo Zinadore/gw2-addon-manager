@@ -1,0 +1,18 @@
+<div id="window-title"><img [src]="images.gw2_logo"> <span>Addon Manager</span></div>
+<div id="window-buttons">
+  <button id="button-minimize" *ngIf="canMinimize" (click)="minimize()">
+    <img [src]="images['minimize']">
+  </button>
+
+  <button id="button-maximize" *ngIf="canMaximize && !isMaximized" (click)="maximize()">
+    <img [src]="images['maximize']">
+  </button>
+
+  <button id="button-restore" *ngIf="canMaximize && isMaximized" (click)="restore()">
+    <img [src]="images['restore']">
+  </button>
+
+  <button id="button-close" (click)="close()">
+    <img [src]="images['close']">
+  </button>
+</div>

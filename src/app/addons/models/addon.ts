@@ -43,3 +43,8 @@ const DEFAULT_STATE = {
 
 export const INITIAL_STATE: AddonState = addonAdapter.getInitialState(DEFAULT_STATE);
 
+export enum AvailableAddons {
+  ArcDPS = 'arcdps',
+  BuildTemplates = 'build-templates',
+  RadialMountButton = 'radial-mount-button'
+}

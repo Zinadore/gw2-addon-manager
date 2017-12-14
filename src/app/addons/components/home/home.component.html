@@ -1,34 +1,50 @@
 <div id="top-buttons">
-  <button>Settings</button>
-  <button>Play</button>
+  <button class="gw2-btn" [routerLink]="['/settings-panel']">Settings</button>
+  <button class="gw2-btn">Play</button>
 </div>
 
 <div id="addon-list">
   <mat-table #table [dataSource]="dataSource" matSort>
 
-    <!-- Name Column -->
+    <!--Name-->
     <ng-container matColumnDef="name">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Addon Name </mat-header-cell>
       <mat-cell *matCellDef="let addon"> {{addon.name}} </mat-cell>
     </ng-container>
 
-    <!-- Name Column -->
+    <!--Action Buttons-->
+    <ng-container matColumnDef="actions">
+      <mat-header-cell *matHeaderCellDef mat-sort-header></mat-header-cell>
+      <mat-cell *matCellDef="let addon">
+        <button class="btn-install" *ngIf="!addon.installed" (click)="installAddon(addon.id)">Install</button>
+        <button class="btn-remove" *ngIf="addon.installed" (click)="uninstallAddon(addon.id)">Remove</button>
+        <!--<button (click)="installAddon(addon.id)"-->
+                <!--*ngIf="addon.installed && (addon.installed_version !== addon.latest_version)">-->
+        <button class="btn-update" *ngIf="addon.installed" (click)="installAddon(addon.id)">
+          Update
+        </button>
+      </mat-cell>
+    </ng-container>
+
+    <!--Installed Version-->
     <ng-container matColumnDef="version">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Version </mat-header-cell>
       <mat-cell *matCellDef="let addon"> {{addon.installed_version}} </mat-cell>
     </ng-container>
 
-    <!-- Weight Column -->
-    <ng-container matColumnDef="weight">
+    <!--Remote Version-->
+    <ng-container matColumnDef="latest_version">
       <mat-header-cell *matHeaderCellDef mat-sort-header> Latest Version </mat-header-cell>
       <mat-cell  *matCellDef="let addon"> {{addon.latest_version}} </mat-cell>
     </ng-container>
 
-    <!-- Color Column -->
-    <ng-container matColumnDef="symbol">
-      <mat-header-cell *matHeaderCellDef mat-sort-header> Installed </mat-header-cell>
-      <mat-cell *matCellDef="let addon"> {{addon.installed}} </mat-cell>
-    </ng-container>
+
+    <!--<ng-container matColumnDef="status">-->
+      <!--<mat-header-cell *matHeaderCellDef mat-sort-header> Installed </mat-header-cell>-->
+      <!--<mat-cell *matCellDef="let addon"> {{ addon.installed? 'Yes' : 'No'}} </mat-cell>-->
+    <!--</ng-container>-->
+
+
 
     <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
     <mat-row *matRowDef="let row; columns: displayedColumns;"></mat-row>

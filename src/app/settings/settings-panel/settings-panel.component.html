@@ -1,0 +1,9 @@
+<h1 id="header" class="">Settings</h1>
+
+<div id="options" class="content-item">
+  <app-installation-path (pathSet)="onPathChanged($event)"></app-installation-path>
+</div>
+
+<div id="buttons" [routerLink]="['/addons']">
+  <button class="gw2-btn">Done</button>
+</div>

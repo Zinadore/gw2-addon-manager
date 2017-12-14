@@ -1,18 +1,16 @@
 import { app, BrowserWindow, screen, Menu } from 'electron';
-import installExtension, { REDUX_DEVTOOLS } from 'electron-devtools-installer';
-import * as path from 'path';
 
-let win, serve;
+const isDev = require('electron-is-dev');
+const outputFile = require('fs-extra').outputFile;
+
+let win, serve, ipcMain;
 const args = process.argv.slice(1);
 serve = args.some(val => val === '--serve');
+ipcMain = require('electron').ipcMain;
 
 if (serve) {
   require('electron-reload')(__dirname, {
   });
-
-  installExtension(REDUX_DEVTOOLS)
-    .then((name) => console.log(`Added Extension:  ${name}`))
-    .catch((err) => console.log('An error occurred: ', err));
 }
 
 function createWindow() {
@@ -26,7 +24,9 @@ function createWindow() {
     height: size.height / 2,
     center: true,
     frame: false,
-    show: false
+    show: false,
+    minWidth: size.width / 2,
+    minHeight: size.height / 2,
   });
 
   // and load the index.html of the app.
@@ -47,7 +47,14 @@ function createWindow() {
 
   win.once('ready-to-show', () => {
     win.show();
-  })
+  });
+
+   if (isDev) {
+    const { installExtension, REDUX_DEVTOOLS } = require('electron-devtools-installer');
+      installExtension(REDUX_DEVTOOLS)
+        .then((name) => console.log(`Added Extension:  ${name}`))
+        .catch((err) => console.log('An error occurred: ', err));
+  }
 }
 
 try {
@@ -74,7 +81,19 @@ try {
     }
   });
 
+  ipcMain.on('SAVE_FILE', (event, filepath, buffer) => {
+    outputFile(filepath, buffer, err => {
+      if (err) {
+        event.sender.send('SAVE_FILE_ERROR', err.message, filepath);
+      } else {
+        event.sender.send('SAVE_FILE_SUCCESS', filepath);
+        console.log('[Electron Main] Saved file: ', filepath);
+      }
+    })
+  });
+
 } catch (e) {
   // Catch Error
   // throw e;
+  app.quit();
 }

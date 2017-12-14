@@ -1,4 +1,7 @@
-<div id="window-title"><img [src]="images.gw2_logo"> <span>Addon Manager</span></div>
+<div id="window-title">
+  <img class="gw2-logo" [src]="images.gw2_logo">
+  <span>Addon Manager</span>
+</div>
 <div id="window-buttons">
   <button id="button-minimize" *ngIf="canMinimize" (click)="minimize()">
     <img [src]="images['minimize']">

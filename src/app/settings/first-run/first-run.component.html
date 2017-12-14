@@ -1,11 +1,24 @@
-<h3>It appears this is the first time you run this app. Locate your  Guild Wars 2 installation below to continue</h3>
-<div id="selector">
-  <app-installation-path></app-installation-path>
+<h1 class="content-item">
+  FIRST RUN
+</h1>
+<div class="content-item">
+  <h3>Locate Installation</h3>
+  <p>
+    It appears this is the first time you run this app. Locate your  Guild Wars 2 installation below to continue.
+  </p>
 </div>
-<div id="path-examples">
+<div class="content-item">
+  <app-installation-path (pathSet)="onPathSet($event)"></app-installation-path>
   Can usually be found under:
   <ul>
     <li>"C:\Program Files\Guild Wars 2"</li>
     <li>"C:\Program Files (x86)\Guild Wars 2"</li>
   </ul>
 </div>
+<!--<div id="path-examples">-->
+  <!--Can usually be found under:-->
+  <!--<ul>-->
+    <!--<li>"C:\Program Files\Guild Wars 2"</li>-->
+    <!--<li>"C:\Program Files (x86)\Guild Wars 2"</li>-->
+  <!--</ul>-->
+<!--</div>-->

@@ -246,6 +246,7 @@ module.exports = {
     // "crypto": "require('crypto')",
     // "events": "require('events')",
     "fs": "require('fs')",
+    "fs-extra": "require('fs-extra')",
     // "http": "require('http')",
     // "https": "require('https')",
     // "assert": "require('assert')",
@@ -262,7 +263,7 @@ module.exports = {
     // "util": "require('util')",
     // "zlib": "require('zlib')"
     "electron-settings": "require('electron-settings')",
-    "electron-titlebar": "require('electron-titlebar')"
+    "mz/fs": "require('mz/fs')",
   },
   "resolve": {
     "extensions": [

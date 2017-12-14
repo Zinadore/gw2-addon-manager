@@ -1,15 +1,18 @@
 /* You can add global styles to this file, and also import other style files */
 @import "~@angular/material/prebuilt-themes/deeppurple-amber.css";
+@import "~loaders.css/loaders.min.css";
 
 
 html, body {
   margin: 0;
   padding: 0;
+  font-family: Candara,Calibri,Segoe,Segoe UI,Optima,Arial,sans-serif;
 }
 
 body {
   height: 100vh;
   position: relative;
+  overflow: hidden;
 
   &:after {
     background: url("./assets/body-background.jpg") transparent top no-repeat;
@@ -19,7 +22,7 @@ body {
     position: absolute;
     top: 0;
     bottom: 0;
-    right: 0;
+    right: -10%;
     left: 0;
     z-index: -1;
   }
@@ -30,20 +33,31 @@ body {
   padding: 0.25em 1.25em;
 }
 
-.btn-gw2 {
-  padding: 0.75em 1.25em;
+.loader {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  & .gw2-loader {
+    background-color: rgb(220, 36, 31);
+  }
+}
+
+.gw2-btn {
+  padding: 0.25em 0.75em;
   font-weight: bold;
-  border: 1px solid rgba(0,0,0,0);
+  border: 1px solid rgb(220, 36, 31);
   border-radius: 5px;
-  color: white;
+  color: black;
+  background-color: white;
   font-size: 1.5rem;
-  -webkit-text-stroke: 1px black;
+  //-webkit-text-stroke: 1px black;
 
   &:hover {
     cursor: pointer;
     outline: none;
     border: 1px solid rgb(220, 36, 31);
-
+    background-color: rgb(220, 36, 31);
+    color: white;
   }
 
   &:focus, &:active {
@@ -51,8 +65,41 @@ body {
   }
 }
 
-.btn-gw2-patterned {
-  background: url("./assets/button-pattern-transparent.png") no-repeat;
-  background-size: 100% 150%;
-  background-position-y: center;
+.gw2-btn-patterned {
+  border: 1px solid rgb(220, 36, 31);
+  background: transparent;
+  position: relative;
+  color: rgb(220, 36, 31);
+  //-webkit-text-stroke: 1px black;
+  z-index: 5;
+
+  &:hover {
+    background-color: transparent;
+    border-color: transparent;
+    overflow: hidden;
+    -webkit-text-stroke: 1px black;
+  }
+
+  &:hover::after {
+    content: " ";
+    display: block;
+    position: absolute;
+    width: 130%;
+    height: 100%;
+    top: 0;
+    left: -30%;
+    z-index: -1;
+    background: white url("./assets/button-pattern-transparent.png") no-repeat;
+    background-size: 100% 100%;
+
+  }
+}
+
+$logo-width: 70px;
+$logo-height: $logo-width / 1.45;
+
+.gw2-logo {
+  width: $logo-width;
+  height: $logo-height;
+  margin: ($logo-height * 0.25) ($logo-width * 0.25);
 }

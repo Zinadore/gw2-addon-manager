@@ -1,5 +1,8 @@
 <app-titlebar></app-titlebar>
-<div id="content-wrapper">
+<loaders-css [loader]="'ball-spin-fade-loader'"
+             *ngIf="isLoading$ | async"
+              [loaderClass]="'gw2-loader'"></loaders-css>
+<div id="content-wrapper" *ngIf="!(isLoading$ | async)">
     <router-outlet></router-outlet>
 </div>
 <button (click)="clearSettings()">Clear Settings</button>

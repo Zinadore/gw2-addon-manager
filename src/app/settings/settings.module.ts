@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { SettingsRouting } from './settings.routing';
 import { InstallationPathComponent } from './installation-path/installation-path.component';
 import { FirstRunComponent } from './first-run/first-run.component';
+import { SettingsPanelComponent } from './settings-panel/settings-panel.component';
 
 @NgModule({
   imports: [
@@ -12,7 +13,8 @@ import { FirstRunComponent } from './first-run/first-run.component';
   ],
   declarations: [
     InstallationPathComponent,
-    FirstRunComponent
+    FirstRunComponent,
+    SettingsPanelComponent
   ],
   exports: [
   ]

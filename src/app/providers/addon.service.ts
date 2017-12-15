@@ -7,29 +7,36 @@ import { FileSystemService } from './filesystem.service';
 import { AvailableAddons } from '../addons/models/addon';
 import { Update } from '../addons/addons.actions';
 import { ArcDpsService } from '../addons/providers/arcdps.service';
+import { ComponentBase } from '../components/component-base';
 
 @Injectable()
-export class AddonService {
+export class AddonService extends ComponentBase {
 
   constructor(private electronService: ElectronService,
               private fsService: FileSystemService,
               private arcService: ArcDpsService,
               private store: Store<AppState>) {
-
+    super();
+    this.disposeOnDestroy(this.store.select(state => state.settings.installation_path)
+      .do(p => console.log('From observable chain', p))
+      .filter(p => p !== '')
+      .subscribe(p => this.readAddonsJson(p))
+    );
   }
 
   public init(): void {
     const installationPath = this.electronService.fromSettings(SettingsKeys.InstallationPath);
+
+    this.getRemoteVersions();
 
     if (installationPath) {
       this.store.dispatch(new ChangeSetting(SettingsKeys.InstallationPath, installationPath));
       this.store.dispatch(new ChangeSetting(SettingsKeys.IsFirstRun, false));
 
       this.readAddonsJson(installationPath);
-      this.getRemoteVersions();
-
+    } else {
+      this.finishedLoading();
     }
-    this.store.dispatch(new ChangeSetting(SettingsKeys.Loading, false));
   }
 
   public installAddon(addonId: string) {
@@ -66,10 +73,11 @@ export class AddonService {
             this.updateAddonsInstalledVersionFromFile(json);
           });
       } else {
+        console.log('Creating default file');
         const jObject = this.createDefaultJson(jsonPath);
         this.updateAddonsInstalledVersionFromFile(jObject);
       }
-      })
+    })
   }
 
   private createDefaultJson(jsonPath: string): Object {
@@ -86,6 +94,11 @@ export class AddonService {
     for (const addon of Object.keys(obj)) {
       this.store.dispatch(new Update(addon, { 'installed_version': obj[addon], 'installed': true}));
     }
+    this.finishedLoading();
+  }
+
+  private finishedLoading(): void {
+    this.store.dispatch(new ChangeSetting(SettingsKeys.Loading, false));
   }
 
   private getRemoteVersions() {

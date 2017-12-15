@@ -26,6 +26,8 @@ export class AppComponent extends ComponentBase {
     super();
     this.isLoading$ = this.store.select(selectLoadingState);
 
+    this.disposeOnDestroy(this.isLoading$.subscribe(console.log));
+
     this.addonService.init();
 
     this.disposeOnDestroy(this.router.events

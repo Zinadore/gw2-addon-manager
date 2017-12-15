@@ -4,7 +4,6 @@ import { ElectronService } from './electron.service';
 import * as fs from 'mz/fs';
 import * as path from 'path';
 import { ipcRenderer } from 'electron';
-import { Subject } from 'rxjs/Subject';
 
 @Injectable()
 export class FileSystemService {
@@ -13,14 +12,11 @@ export class FileSystemService {
   private _path: typeof path;
   private _ipcRenderer: typeof ipcRenderer;
 
-  private pendingSaves: Map<string, Subject<boolean>>;
-
   get path(): typeof path {
     return this._path;
   }
 
   constructor(private electronService: ElectronService) {
-    this.pendingSaves = new Map<string, Subject<boolean>>();
     if (this.electronService.isElectron()) {
       this._fs = window.require('mz/fs');
       this._path = window.require('path');

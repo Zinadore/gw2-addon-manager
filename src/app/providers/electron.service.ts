@@ -55,10 +55,6 @@ export class ElectronService {
     this.settings.deleteAll();
   }
 
-  get currentWindow() {
-    return window.require('electron').remote.getCurrentWindow();
-  }
-
   get remote() {
     return window.require('electron').remote;
   }

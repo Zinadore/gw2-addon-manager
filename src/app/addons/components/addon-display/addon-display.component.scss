@@ -1,0 +1,77 @@
+:host {
+  display: grid;
+  width: 100%;
+  flex-basis: 48%;
+  margin-bottom: 1em;
+  background-color: white;
+
+  //grid-template-rows: 1em 1fr auto auto;
+  grid-template-columns: 1fr 1fr;
+  grid-template-areas:
+    "title            title"
+    "current_version  latest_version"
+    "actions          actions"
+    "status           status"
+  ;
+
+  @mixin version-mixin() {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    & > h6 {
+      margin-top: 0;
+      margin-bottom: .3em;
+    }
+  }
+
+  .addon-loader {
+
+  }
+
+  .addon-display-title {
+    grid-area: title;
+
+    & > h4 {
+      margin-top: 0;
+      margin-left: 0.5em;
+    }
+  }
+
+  .addon-display-current {
+    grid-area: current_version;
+    @include version-mixin;
+  }
+
+  .addon-display-latest {
+    grid-area: latest_version;
+    @include version-mixin;
+  }
+
+  .addon-display-actions {
+    grid-area: actions;
+    display: flex;
+    margin-top: 0.7em;
+    justify-content: center;
+    margin-bottom: 0.7em;
+
+    button {
+      font-size: 1.3rem;
+
+      &:disabled, &[disabled] {
+        color: gray;
+        border-color: gray;
+        cursor: not-allowed;
+
+        &:hover {
+          background-color: white;
+        }
+      }
+    }
+  }
+
+  .addon-display-status {
+    grid-area: status;
+    display: flex;
+  }
+}

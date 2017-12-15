@@ -1,0 +1,35 @@
+<div class="addon-display-title">
+  <h4>{{_addon.name}}</h4>
+</div>
+
+<div class="addon-display-current">
+  <h6>Installed Version</h6>
+  <span>{{_addon.installed_version}}</span>
+</div>
+
+<div class="addon-display-latest">
+  <h6>Latest Version</h6>
+  <span>{{_addon.latest_version}}</span>
+</div>
+
+<div class="addon-display-actions">
+
+  <button [disabled]="working"
+          (click)="install()"
+          class="gw2-btn"
+          *ngIf="!_addon.installed">Install</button>
+
+  <button [disabled]="working"
+          (click)="remove()"
+          class="gw2-btn"
+          *ngIf="_addon.installed">Remove</button>
+
+  <button [disabled]="working"
+          (click)="install()"
+          class="gw2-btn"
+          *ngIf="_addon.installed && (_addon.installed_version !== _addon.latest_version)">Update</button>
+</div>
+
+<div class="addon-display-status" *ngIf="working">
+  <mat-progress-bar mode="indeterminate"></mat-progress-bar>
+</div>

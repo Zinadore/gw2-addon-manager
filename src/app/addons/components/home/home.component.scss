@@ -18,49 +18,9 @@
   #addon-list {
     grid-area: addons;
     display: flex;
-    flex-direction: column;
+    flex-direction: row;
     width: 100%;
-
-    .mat-table {
-      overflow: auto;
-      max-height: 500px;
-    }
-
-    .mat-header-cell.mat-sort-header-sorted {
-      color: black;
-    }
-
-    .mat-header-row > .mat-header-cell:not(:first-child) {
-      display: flex;
-      justify-content: center;
-    }
-
-    .mat-row > .mat-cell:not(:first-child) {
-      display: flex;
-      //flex-direction: column;
-      //align-items: center;
-      display: flex;
-      justify-content: center;
-    }
-
-    button {
-      width: 100%;
-      flex-basis: 50%;
-      background-color: transparent;
-      padding: 0.25em 0.75em;
-      border: 1px solid rgb(220, 36, 31);
-      border-radius: 0px;
-
-      &:hover {
-        background-color: rgb(220, 36, 31);
-        color: white;
-        cursor: pointer;
-        outline: none;
-      }
-
-      &:focus, &:active {
-        outline: none;
-      }
-    }
+    flex-wrap: wrap;
+    justify-content: space-between;
   }
 }

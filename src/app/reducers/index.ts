@@ -1,6 +1,7 @@
 import { Action, ActionReducerMap, createSelector } from '@ngrx/store';
 import { addonReducer } from '../addons/addons.reducer';
 import { AddonState } from '../addons/models/addon';
+const ipcRenderer = require('electron').ipcRenderer;
 
 export interface AppState extends AddonState {
   settings: SettingsState;
@@ -28,7 +29,9 @@ export function settingsReducer(state: SettingsState = INITIAL_SETTINGS, action:
     case CHANGE_SETTING: {
       const newValue = {};
       newValue[action.key] = action.value;
-
+      const channel = `[COMMON ${action.key}]`;
+      console.log('Sending settings in channel: ', channel);
+      ipcRenderer.send(channel, action.value);
       return Object.assign({}, state, newValue);
     }
     default: return state;

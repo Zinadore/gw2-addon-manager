@@ -58,8 +58,11 @@
     "electron-settings": "^3.1.4",
     "enhanced-resolve": "3.3.0",
     "fs-extra": "^4.0.2",
+    "httpreq": "^0.4.24",
+    "jsonfile": "^4.0.0",
     "mz": "^2.7.0",
     "rxjs": "5.5.2",
+    "ssl-root-cas": "^1.2.4",
     "zone.js": "0.8.17"
   },
   "devDependencies": {

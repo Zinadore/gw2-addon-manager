@@ -6,6 +6,7 @@ import { ipcRenderer } from 'electron';
 import * as childProcess from 'child_process';
 import * as settings from 'electron-settings';
 import * as path from 'path';
+import { DEBUG_CHROME_CHANNEL } from '../../../IpcChannels';
 
 @Injectable()
 export class ElectronService {
@@ -27,6 +28,10 @@ export class ElectronService {
       this.settings = window.require('electron-settings');
       this.path = window.require('path');
       this._assetsPath = path.resolve(__dirname, 'assets');
+
+      this.ipcRenderer.on(DEBUG_CHROME_CHANNEL, function(event, msg, data) {
+        console.log(`[From backend] ${msg}`, data);
+      });
     }
   }
 
